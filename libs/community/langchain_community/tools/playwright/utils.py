@@ -66,7 +66,7 @@ def create_async_playwright_browser(
     """
     from playwright.async_api import async_playwright
 
-    browser = run_async(async_playwright().start())
+    browser = run_async(async_playwright())
     return run_async(browser.chromium.launch(headless=headless, args=args))
 
 
@@ -101,5 +101,5 @@ def run_async(coro: Coroutine[Any, Any, T]) -> T:
     Returns:
         T: The result of the coroutine.
     """
-    event_loop = asyncio.get_event_loop()
+    event_loop = asyncio.get_running_loop()
     return event_loop.run_until_complete(coro)
